@@ -13,10 +13,12 @@ import br.com.alura.ceep.R;
 import br.com.alura.ceep.dao.NotaDAO;
 import br.com.alura.ceep.model.Nota;
 
+import static br.com.alura.ceep.ui.activity.NotaActivityConstantes.CHAVE_NOTA;
+import static br.com.alura.ceep.ui.activity.NotaActivityConstantes.CODIGO_RESULTADO_NOTA_CRIADA;
+
 public class FormularioNotaActivity extends AppCompatActivity {
 
-    public static final String CHAVE_NOTA = "nota";
-    public static final int CODIGO_RESULTADO_NOTA_CRIADA = 2;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,7 +34,7 @@ public class FormularioNotaActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        if (ehMenuSalvar(item)) {
+        if (ehMenuSalvaNota(item)) {
             Nota notaCriada = criaNota();
             retornaNotaCriada(notaCriada);
             finish();
@@ -50,10 +52,11 @@ public class FormularioNotaActivity extends AppCompatActivity {
     private Nota criaNota() {
         EditText titulo = findViewById(R.id.formulario_nota_titulo);
         EditText descricao = findViewById(R.id.formulario_nota_descricao);
-        return new Nota(titulo.getText().toString(), descricao.getText().toString());
+        return new Nota(titulo.getText().toString(),
+                descricao.getText().toString());
     }
 
-    private boolean ehMenuSalvar(@NonNull MenuItem item) {
+    private boolean ehMenuSalvaNota(@NonNull MenuItem item) {
         return item.getItemId() == R.id.menu_ic_salva_nota;
     }
 }
