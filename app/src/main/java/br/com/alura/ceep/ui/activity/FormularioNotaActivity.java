@@ -21,7 +21,8 @@ import static br.com.alura.ceep.ui.activity.NotaActivityConstantes.POSICAO_INVAL
 public class FormularioNotaActivity extends AppCompatActivity {
 
 
-
+    private static final String TITULO_APPBAR_INSERE = "Insere nota";
+    private static final String TITULO_APPBAR_ALTERA = "Altera nota";
     private int posicaoRecebida = POSICAO_INVALIDA;
     private TextView titulo;
     private TextView descricao;
@@ -33,7 +34,10 @@ public class FormularioNotaActivity extends AppCompatActivity {
         inicializaCampos();
         Intent dadosRecebidos = getIntent();
 
+        setTitle(TITULO_APPBAR_INSERE);
+
         if (dadosRecebidos.hasExtra(CHAVE_NOTA)) {
+            setTitle(TITULO_APPBAR_ALTERA);
             Nota notaRecebida = (Nota) dadosRecebidos.getSerializableExtra(CHAVE_NOTA);
             posicaoRecebida = dadosRecebidos.getIntExtra(CHAVE_POSICAO, POSICAO_INVALIDA);
             preencheCampos(notaRecebida);

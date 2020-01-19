@@ -20,7 +20,7 @@ public class ListaNotasAdapter extends RecyclerView.Adapter<ListaNotasAdapter.No
 
     private final List<Nota> notas;
     private final Context context;
-    br.com.alura.ceep.ui.recyclerview.adapter.listener.onItemClickListener onItemClickListener;
+    private br.com.alura.ceep.ui.recyclerview.adapter.listener.onItemClickListener onItemClickListener;
 
     public ListaNotasAdapter(Context context, List<Nota> notas) {
         this.notas = notas;
@@ -50,7 +50,6 @@ public class ListaNotasAdapter extends RecyclerView.Adapter<ListaNotasAdapter.No
     }
 
     public void adiciona(Nota nota) {
-        NotaDAO dao = new NotaDAO();
         notas.add(nota);
         notifyDataSetChanged();
     }
@@ -62,12 +61,12 @@ public class ListaNotasAdapter extends RecyclerView.Adapter<ListaNotasAdapter.No
 
     public void remove(int posicao) {
         notas.remove(posicao);
-        notifyDataSetChanged();
+        notifyItemRemoved(posicao);
     }
 
     public void troca(int posicaoInicial, int posicaoFinal) {
         Collections.swap(notas, posicaoInicial, posicaoFinal);
-        notifyDataSetChanged();
+        notifyItemMoved(posicaoInicial, posicaoFinal);
     }
 
     class NotaViewHolder extends RecyclerView.ViewHolder {

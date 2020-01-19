@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">Ceep</string>
+    <string name="ttulo">Título</string>
+    <string name="descricao">Descrição</string>
+    <string name="inserir_uma_nota">Inserir uma nota</string>
+    <string name="salva_nota">Salva nota</string>
 </resources>

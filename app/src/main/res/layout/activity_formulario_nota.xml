@@ -10,12 +10,14 @@
         android:layout_height="wrap_content"
         android:layout_margin="20dp"
         android:background="@android:color/transparent"
-        android:hint="Título"
+        android:hint="@string/ttulo"
+        android:inputType="text"
         android:textSize="30sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:importantForAutofill="no" />
 
     <EditText
         android:id="@+id/formulario_nota_descricao"
@@ -25,10 +27,12 @@
         android:layout_marginBottom="8dp"
         android:background="@android:color/transparent"
         android:gravity="top"
-        android:hint="Descrição"
+        android:hint="@string/descricao"
+        android:inputType="text"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@id/formulario_nota_titulo"
         app:layout_constraintStart_toStartOf="@id/formulario_nota_titulo"
-        app:layout_constraintTop_toBottomOf="@id/formulario_nota_titulo" />
+        app:layout_constraintTop_toBottomOf="@id/formulario_nota_titulo"
+        android:importantForAutofill="no" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

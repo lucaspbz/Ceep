@@ -9,7 +9,7 @@ import br.com.alura.ceep.ui.recyclerview.adapter.ListaNotasAdapter;
 
 public class ListaNotasItemTouchHelperCallback extends ItemTouchHelper.Callback {
 
-    private ListaNotasAdapter adapter;
+    private final ListaNotasAdapter adapter;
 
     public ListaNotasItemTouchHelperCallback(ListaNotasAdapter adapter) {
         this.adapter = adapter;
@@ -33,8 +33,8 @@ public class ListaNotasItemTouchHelperCallback extends ItemTouchHelper.Callback 
     }
 
     private void trocaNotas(int posicaoInicial, int posicaoFinal, NotaDAO dao) {
-        dao.troca(posicaoInicial,posicaoFinal);
-        adapter.troca(posicaoInicial,posicaoFinal);
+        dao.troca(posicaoInicial, posicaoFinal);
+        adapter.troca(posicaoInicial, posicaoFinal);
     }
 
     @Override
