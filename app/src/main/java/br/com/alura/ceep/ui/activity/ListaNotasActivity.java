@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -15,6 +16,7 @@ import br.com.alura.ceep.R;
 import br.com.alura.ceep.dao.NotaDAO;
 import br.com.alura.ceep.model.Nota;
 import br.com.alura.ceep.ui.recyclerview.adapter.ListaNotasAdapter;
+import br.com.alura.ceep.ui.recyclerview.adapter.listener.onItemClickListener;
 
 import static br.com.alura.ceep.ui.activity.NotaActivityConstantes.CHAVE_NOTA;
 import static br.com.alura.ceep.ui.activity.NotaActivityConstantes.CODIGO_REQUISICAO_INSERE_NOTA;
@@ -55,6 +57,9 @@ public class ListaNotasActivity extends AppCompatActivity {
 
     private List<Nota> pegaTodasNotas() {
         NotaDAO dao = new NotaDAO();
+        for (int i = 0; i < 10; i++) {
+            dao.insere(new Nota("Titulo " + (i + 1), "Descricao " + (i + 1)));
+        }
         return dao.todos();
     }
 
@@ -63,6 +68,11 @@ public class ListaNotasActivity extends AppCompatActivity {
         if (ehResultadoComNota(requestCode, resultCode, data)) {
             Nota notaRecebida = (Nota) data.getSerializableExtra(CHAVE_NOTA);
             adiciona(notaRecebida);
+        }
+
+        if (requestCode == 2 && ehCodigoResultadoNotaCriada(resultCode) && temNota(data)) {
+            Nota notaRecebida = (Nota) data.getSerializableExtra(CHAVE_NOTA);
+            Toast.makeText(this, notaRecebida.getTitulo(), Toast.LENGTH_SHORT).show();
         }
         super.onActivityResult(requestCode, resultCode, data);
     }
@@ -96,5 +106,14 @@ public class ListaNotasActivity extends AppCompatActivity {
     private void configuraAdapter(List<Nota> notas, RecyclerView view) {
         adapter = new ListaNotasAdapter(this, notas);
         view.setAdapter(adapter);
+        adapter.setOnItemClickListener(new onItemClickListener() {
+            @Override
+            public void onItemClick(Nota nota) {
+                Intent vaiParaFormularioComNota = new Intent(ListaNotasActivity.this,
+                        FormularioNotaActivity.class);
+                vaiParaFormularioComNota.putExtra(CHAVE_NOTA, nota);
+                startActivityForResult(vaiParaFormularioComNota, 2);
+            }
+        });
     }
 }

@@ -19,10 +19,15 @@ public class ListaNotasAdapter extends RecyclerView.Adapter<ListaNotasAdapter.No
 
     private final List<Nota> notas;
     private final Context context;
+    br.com.alura.ceep.ui.recyclerview.adapter.listener.onItemClickListener onItemClickListener;
 
     public ListaNotasAdapter(Context context, List<Nota> notas) {
         this.notas = notas;
         this.context = context;
+    }
+
+    public void setOnItemClickListener(br.com.alura.ceep.ui.recyclerview.adapter.listener.onItemClickListener onItemClickListener) {
+        this.onItemClickListener = onItemClickListener;
     }
 
     @NonNull
@@ -53,14 +58,22 @@ public class ListaNotasAdapter extends RecyclerView.Adapter<ListaNotasAdapter.No
 
         private final TextView titulo;
         private final TextView descricao;
+        private Nota nota;
 
         public NotaViewHolder(View itemView) {
             super(itemView);
             titulo = itemView.findViewById(R.id.item_nota_titulo);
             descricao = itemView.findViewById(R.id.item_nota_descricao);
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    onItemClickListener.onItemClick(nota);
+                }
+            });
         }
 
         public void vincula(Nota nota) {
+            this.nota = nota;
             preencheCampos(nota);
         }
 
