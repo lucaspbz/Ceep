@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -70,9 +69,12 @@ public class ListaNotasActivity extends AppCompatActivity {
             adiciona(notaRecebida);
         }
 
-        if (requestCode == 2 && ehCodigoResultadoNotaCriada(resultCode) && temNota(data)) {
+        if (requestCode == 2 && ehCodigoResultadoNotaCriada(resultCode) && temNota(data) && data.hasExtra("posicao")) {
             Nota notaRecebida = (Nota) data.getSerializableExtra(CHAVE_NOTA);
-            Toast.makeText(this, notaRecebida.getTitulo(), Toast.LENGTH_SHORT).show();
+            int posicaoRecebida = data.getIntExtra("posicao", -1);
+            new NotaDAO().altera(posicaoRecebida, notaRecebida);
+            adapter.altera(posicaoRecebida, notaRecebida);
+
         }
         super.onActivityResult(requestCode, resultCode, data);
     }
@@ -108,10 +110,11 @@ public class ListaNotasActivity extends AppCompatActivity {
         view.setAdapter(adapter);
         adapter.setOnItemClickListener(new onItemClickListener() {
             @Override
-            public void onItemClick(Nota nota) {
+            public void onItemClick(Nota nota, int posicao) {
                 Intent vaiParaFormularioComNota = new Intent(ListaNotasActivity.this,
                         FormularioNotaActivity.class);
                 vaiParaFormularioComNota.putExtra(CHAVE_NOTA, nota);
+                vaiParaFormularioComNota.putExtra("posicao", posicao);
                 startActivityForResult(vaiParaFormularioComNota, 2);
             }
         });
